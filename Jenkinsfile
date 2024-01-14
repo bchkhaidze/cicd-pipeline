@@ -4,27 +4,27 @@ pipeline {
     stage('Checkout') {
       steps {
         script {
-          checkout scm      
-            }
+          checkout scm
         }
+
+      }
     }
 
     stage('Build') {
-        steps {
-            script {
-                sh scripts/build.sh
-            }
-        }
+      steps {
+        sh 'scripts/build.sh'
+      }
     }
 
     stage('Test') {
-        steps {
-            script {
-                sh scripts/test.sh
-            }
+      steps {
+        script {
+          sh scripts/test.sh
         }
+
+        sh 'scripts/test.sh'
+      }
     }
-    }
+
+  }
 }
-
-
