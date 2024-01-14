@@ -1,42 +1,57 @@
 pipeline {
-  agent any
-  stages {
-    stage('Build') {
-      steps {
-        script {
-          checkout scm          
-          sh scripts/build.sh
-        }
-      }
-    }
+    agent any
 
-
-    stage('Test') {
-      steps {
-        script {
-          docker.withRegistry('','dockerhub_id'){
-            docker.image("${registry}:${env.BUILD_ID}").push('latest')
-            docker.image("${registry}:${env.BUILD_ID}").push("${env.BUILD_ID}")
-          }
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
         }
 
-      }
-    }
-
-    stage('Publish') {
-      steps {
-        script {
-          docker.withRegistry('','dockerhub_id'){
-            docker.image("${registry}:${env.BUILD_ID}").push('latest')
-            docker.image("${registry}:${env.BUILD_ID}").push("${env.BUILD_ID}")
-          }
+        stage('Build') {
+            steps {
+                sh scripts/build.sh
+            }
         }
 
-      }
+        stage('Test') {
+            steps {
+                sh scripts/test.sh
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                // Build Docker image using Dockerfile
+                script {
+                    def customImage = docker.build("your-dockerhub-username/your-image-name:${env.BUILD_ID}")
+                }
+            }
+        }
+
+        stage('Publish to DockerHub') {
+            steps {
+                // Publish the Docker image to DockerHub
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials-id') {
+                        customImage.push()
+                    }
+                }
+            }
+        }
     }
 
-  }
-  environment {
-    registry = 'bakari1991/flask_app'
-  }
+    post {
+        success {
+            echo 'Pipeline succeeded!'
+
+            // Optionally, you can perform additional actions after a successful build
+        }
+
+        failure {
+            echo 'Pipeline failed!'
+
+            // Optionally, you can perform additional actions after a failed build
+        }
+    }
 }
