@@ -12,17 +12,15 @@ pipeline {
 
     stage('Build') {
       steps {
-        sh 'scripts/build.sh'
+        sh '''chmod 777 scripts/build.sh
+scripts/build.sh'''
       }
     }
 
     stage('Test') {
       steps {
-        script {
-          sh scripts/test.sh
-        }
-
-        sh 'scripts/test.sh'
+        sh '''chmod 777 scripts/test.sh
+scripts/test.sh'''
       }
     }
 
