@@ -10,6 +10,12 @@ pipeline {
       }
     }
 
+    stage('Build') {
+      steps {
+        sh 'scripts/build.sh'
+      }
+    }
+
   }
   post {
     success {
