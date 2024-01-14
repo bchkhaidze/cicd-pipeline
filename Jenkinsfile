@@ -23,6 +23,16 @@ scripts/build.sh'''
 scripts/test.sh'''
       }
     }
+        
+        
+    stage('Build Docker Image') {
+    	steps {
+      // Build Docker image using Dockerfile
+      	script {
+          def customImage = docker.build(${registry}:${env.BUILD_ID}:latest)
+             }
+        	 }
+        }
 
   }
 }
