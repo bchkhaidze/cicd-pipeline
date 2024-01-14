@@ -29,7 +29,7 @@ scripts/test.sh'''
     	steps {
       // Build Docker image using Dockerfile
       	script {
-          sh '''docker build -t nodeapp'''
+          sh '''docker build . -t nodeapp'''
         }
       }
   	}
