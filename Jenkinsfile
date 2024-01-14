@@ -29,13 +29,26 @@ scripts/test.sh'''
     	steps {
       // Build Docker image using Dockerfile
       	script {
-					docker.withRegistry('','hub_id'){
-					docker.image("${registry}:${env.BUILD_ID}").push('latest')
-          docker.image("${registry}:${env.BUILD_ID}").push("${env.BUILD_ID}")
-        	}
+          docker build -t nodeapp  
         }
       }
   	}
+
+		stage('Docker Image Push') {
+			steps {
+				script {
+					docker.withRegistry('', 'hub_id')
+          { 
+            app.push("${env.BUILD_NUMBER}") 
+            app.push("latest") 
+          }
+				}
+			}
+    }
+
+
+
+
 	}
 	environment {
     registry = 'bakari1991/nodeapp'
