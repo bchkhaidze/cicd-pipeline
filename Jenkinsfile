@@ -28,7 +28,7 @@ pipeline {
 			steps {
 				script {
 					docker.withRegistry('', 'hub_id'){ 
-            def customImage = docker.build("my-image:${env.BUILD_ID}")
+            def customImage = docker.build("nodeapp:${env.BUILD_ID}")
             customImage.push()
           }
 				}
