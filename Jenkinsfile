@@ -29,10 +29,11 @@ scripts/test.sh'''
     	steps {
       // Build Docker image using Dockerfile
       	script {
-          def customImage = docker.build(${registry}:${env.BUILD_ID}:latest)
-             }
-        	 }
+					docker.withRegistry('','dockerhub_id'){
+					docker.image("${registry}:${env.BUILD_ID}").push('latest')
+          docker.image("${registry}:${env.BUILD_ID}").push("${env.BUILD_ID}")
+        	}
         }
-
-  }
+      }
+  	}
 }
