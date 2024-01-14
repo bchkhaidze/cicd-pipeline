@@ -5,8 +5,8 @@ pipeline {
       steps {
         script {
           checkout scm
-          sh scripts/build.sh
-          # def customImage = docker.build("${registry}:${env.Build_ID}")
+          #sh scripts/build.sh
+          def customImage = docker.build("${registry}:${env.Build_ID}")
         }
       }
     }
