@@ -40,8 +40,8 @@ scripts/test.sh'''
 					docker.withRegistry('', 'hub_id'){ 
             //app.push("${env.BUILD_NUMBER}") 
             //app.push("latest") 
-            docker.image("${registry}").push('latest')
-            docker.image("${registry}").push("${env.BUILD_ID}")
+            docker.image.push('latest')
+            docker.image.push("${env.BUILD_ID}")
           }
 				}
 			}
