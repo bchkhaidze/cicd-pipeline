@@ -36,5 +36,8 @@ scripts/test.sh'''
         }
       }
   	}
-}
+	}
+	environment {
+    registry = 'bakari1991/nodeapp'
+  }
 }
