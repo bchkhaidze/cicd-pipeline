@@ -29,7 +29,7 @@ scripts/test.sh'''
     	steps {
       // Build Docker image using Dockerfile
       	script {
-					docker.withRegistry('','dockerhub_id'){
+					docker.withRegistry('','hub_id'){
 					docker.image("${registry}:${env.BUILD_ID}").push('latest')
           docker.image("${registry}:${env.BUILD_ID}").push("${env.BUILD_ID}")
         	}
