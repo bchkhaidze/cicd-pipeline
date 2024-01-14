@@ -5,22 +5,22 @@ pipeline {
       steps {
         script {
           checkout scm
-            }
         }
+    }
 
-        stage('Build') {
-            steps {
-                sh chmod 777 scripts/build.sh
-                sh scripts/build.sh
-            }
+    stage('Build') {
+        steps {
+            sh chmod 777 scripts/build.sh
+            sh scripts/build.sh
         }
+    }
 
-        stage('Test') {
-            steps {
-                sh chmod 777 scripts/test.sh
-                sh scripts/test.sh
-            }
+    stage('Test') {
+        steps {
+            sh chmod 777 scripts/test.sh
+            sh scripts/test.sh
         }
+    }
     }
   }
     post {
