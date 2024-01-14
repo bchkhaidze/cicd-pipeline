@@ -5,6 +5,7 @@ pipeline {
       steps {
         script {
           checkout scm
+            }
         }
 
         stage('Build') {
@@ -14,14 +15,14 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Test') {
             steps {
                 sh chmod 777 scripts/test.sh
                 sh scripts/test.sh
             }
         }
     }
-
+  }
     post {
         success {
             echo 'Pipeline succeeded!'
