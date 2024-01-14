@@ -29,7 +29,8 @@ pipeline {
 				script {
 					docker.withRegistry('', 'hub_id'){ 
             def customImage = docker.build("${registry}:${env.BUILD_ID}")
-            customImage.push()
+            customImage.push("${env.BUILD_ID}")
+            customImage.push('latest')
           }
 				}
 			}
